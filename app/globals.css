@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap");
 @import "tailwindcss";
 
 @theme inline {
@@ -15,8 +16,8 @@
   --color-neutral-700: #334155;
   --color-neutral-900: #0f172a;
   --color-white: #ffffff;
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-playfair);
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
   --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -42,12 +43,36 @@
   font-weight: 700;
 }
 
-@utility text-heading-1 { font-size: 28px; line-height: 36px; font-weight: 600; }
-@utility text-heading-2 { font-size: 22px; line-height: 30px; font-weight: 600; }
-@utility text-heading-3 { font-size: 18px; line-height: 26px; font-weight: 500; }
-@utility text-body-large { font-size: 16px; line-height: 24px; font-weight: 400; }
-@utility text-body { font-size: 14px; line-height: 20px; font-weight: 400; }
-@utility text-small { font-size: 12px; line-height: 16px; font-weight: 400; }
+@utility text-heading-1 {
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 600;
+}
+@utility text-heading-2 {
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 600;
+}
+@utility text-heading-3 {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 500;
+}
+@utility text-body-large {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+@utility text-body {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+@utility text-small {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
 
 :root {
   --background: #fafafc;
@@ -62,7 +87,8 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
 }
 
 button,

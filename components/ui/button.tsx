@@ -12,13 +12,23 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const variants: Record<ButtonVariant, string> = {
-  primary: "bg-primary-500 text-white hover:bg-primary-600 disabled:bg-primary-100 disabled:text-primary-300",
-  secondary: "border border-primary-500 text-primary-500 hover:bg-primary-100 disabled:border-primary-200 disabled:text-primary-300",
-  tertiary: "border border-neutral-200 bg-white text-neutral-900 hover:bg-neutral-50 disabled:text-neutral-300",
+  primary:
+    "bg-primary-500 text-white hover:bg-primary-600 disabled:bg-primary-100 disabled:text-primary-300",
+  secondary:
+    "border border-primary-500 text-primary-500 hover:bg-primary-100 disabled:border-primary-200 disabled:text-primary-300",
+  tertiary:
+    "border border-neutral-200 bg-white text-neutral-900 hover:bg-neutral-50 disabled:text-neutral-300",
   text: "px-0 text-primary-500 hover:text-primary-600 disabled:text-primary-300",
 };
 
-export function Button({ variant = "primary", size = "lg", showIcon, className, children, ...props }: ButtonProps) {
+export function Button({
+  variant = "primary",
+  size = "lg",
+  showIcon,
+  className,
+  children,
+  ...props
+}: ButtonProps) {
   const icon = showIcon ?? (variant === "tertiary" || variant === "text");
   return (
     <button
@@ -32,7 +42,12 @@ export function Button({ variant = "primary", size = "lg", showIcon, className, 
       {...props}
     >
       {children}
-      {icon && (variant === "tertiary" ? <ExternalLink aria-hidden="true" size={14} /> : <PlayCircle aria-hidden="true" size={15} />)}
+      {icon &&
+        (variant === "tertiary" ? (
+          <ExternalLink aria-hidden="true" size={14} />
+        ) : (
+          <PlayCircle aria-hidden="true" size={15} />
+        ))}
     </button>
   );
 }
