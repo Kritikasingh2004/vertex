@@ -1,10 +1,5 @@
 import Link from "next/link";
-import {
-  SignInButton,
-  SignUpButton,
-  Show,
-  UserButton,
-} from "@clerk/nextjs";
+import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 import { Bell } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
 
