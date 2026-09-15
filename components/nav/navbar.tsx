@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { Bell, UserRound } from "lucide-react";
+import {
+  SignInButton,
+  SignUpButton,
+  Show,
+  UserButton,
+} from "@clerk/nextjs";
+import { Bell } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
 
 export function Navbar() {
@@ -29,12 +35,29 @@ export function Navbar() {
       >
         <Bell size={21} strokeWidth={1.7} aria-hidden="true" />
       </button>
-      <div
-        className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full border border-warm-400 bg-primary-100 text-neutral-700 sm:h-10 sm:w-10"
-        aria-label="Account"
-      >
-        <UserRound size={22} strokeWidth={1.5} aria-hidden="true" />
-      </div>
+      <Show when="signed-out">
+        <div className="flex shrink-0 items-center gap-2 text-[12px] sm:gap-3 sm:text-body">
+          <SignInButton mode="modal">
+            <button
+              className="font-semibold text-neutral-700 transition hover:text-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+              type="button"
+            >
+              Sign in
+            </button>
+          </SignInButton>
+          <SignUpButton mode="modal">
+            <button
+              className="rounded-md bg-primary-500 px-3 py-2 font-semibold text-white transition hover:bg-primary-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 sm:px-4"
+              type="button"
+            >
+              Sign up
+            </button>
+          </SignUpButton>
+        </div>
+      </Show>
+      <Show when="signed-in">
+        <UserButton />
+      </Show>
     </nav>
   );
 }
