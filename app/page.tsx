@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { ArrowRight, Star } from "lucide-react";
-import { CourseCard, type CourseCardProps } from "@/components/cards/course-card";
+import {
+  CourseCard,
+  type CourseCardProps,
+} from "@/components/cards/course-card";
 import { Navbar } from "@/components/nav/navbar";
 import { SearchInput } from "@/components/ui/search-input";
 
@@ -9,7 +12,8 @@ const courses: CourseCardProps[] = [
     mark: "N",
     markClassName: "bg-neutral-900 text-white",
     title: "Next.js for Production",
-    description: "Build scalable, high-performance web applications with Next.js.",
+    description:
+      "Build scalable, high-performance web applications with Next.js.",
     level: "Intermediate",
     duration: "18h 24m",
     modules: "12 modules",
@@ -18,7 +22,8 @@ const courses: CourseCardProps[] = [
     mark: "▣",
     markClassName: "bg-docker-blue text-white",
     title: "Docker Essentials",
-    description: "Containerize applications and streamline your development workflow.",
+    description:
+      "Containerize applications and streamline your development workflow.",
     level: "Beginner",
     duration: "10h 12m",
     modules: "8 modules",
@@ -54,7 +59,8 @@ export default function Home() {
             </h1>
             <p className="mx-auto mt-7 max-w-[560px] text-body-large leading-8 text-neutral-500 sm:text-[18px]">
               Vertex understands what you want to learn and
-              <br className="hidden sm:block" /> finds the exact lessons across all your courses.
+              <br className="hidden sm:block" /> finds the exact lessons across
+              all your courses.
             </p>
             <Link
               className="mx-auto mt-8 inline-flex h-12 items-center gap-5 rounded-md bg-primary-500 px-6 text-body-large text-white shadow-md transition hover:bg-primary-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
@@ -69,12 +75,21 @@ export default function Home() {
             />
           </section>
 
-          <section className="border-t border-[#eee7e3] px-8 pb-0 pt-12 sm:px-12 sm:pt-14" aria-labelledby="all-courses-heading">
+          <section
+            className="border-t border-[#eee7e3] px-8 pb-0 pt-12 sm:px-12 sm:pt-14"
+            aria-labelledby="all-courses-heading"
+          >
             <div className="flex items-center justify-between gap-4">
-              <h2 id="all-courses-heading" className="font-display text-[26px] font-bold text-neutral-900">
+              <h2
+                id="all-courses-heading"
+                className="font-display text-[26px] font-bold text-neutral-900"
+              >
                 All Courses
               </h2>
-              <Link className="inline-flex items-center gap-3 text-body text-primary-500 hover:text-primary-600" href="/courses">
+              <Link
+                className="inline-flex items-center gap-3 text-body text-primary-500 hover:text-primary-600"
+                href="/courses"
+              >
                 View all courses
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
@@ -86,11 +101,19 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="px-0 pt-16 text-center" aria-label="New content announcement">
+          <section
+            className="px-0 pt-16 text-center"
+            aria-label="New content announcement"
+          >
             <div className="mx-8 flex items-center gap-2 text-body-large text-neutral-700 sm:mx-12 sm:gap-7">
               <span className="h-px flex-1 bg-warm-400" />
               <span className="inline-flex min-w-0 max-w-[240px] items-center justify-center gap-2 text-center sm:max-w-none sm:gap-4">
-                <Star size={22} strokeWidth={1.5} className="text-primary-500" aria-hidden="true" />
+                <Star
+                  size={22}
+                  strokeWidth={1.5}
+                  className="text-primary-500"
+                  aria-hidden="true"
+                />
                 New courses and lessons added every week.
               </span>
               <span className="h-px flex-1 bg-warm-400" />
