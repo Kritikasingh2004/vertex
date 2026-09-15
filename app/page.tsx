@@ -42,7 +42,7 @@ const courses: CourseCardProps[] = [
 export default function Home() {
   return (
     <div className="vertex-page min-h-screen">
-      <div className="mx-auto min-h-screen max-w-[960px] border-x border-warm-200 bg-warm-50 shadow-[0_0_40px_rgba(164,91,55,0.03)]">
+      <div className="mx-auto min-h-screen w-full max-w-[1440px] border-x border-warm-200 bg-warm-50 shadow-[0_0_40px_rgba(164,91,55,0.03)]">
         <header className="border-b border-warm-300 px-8 py-5 sm:px-12">
           <Navbar />
         </header>
