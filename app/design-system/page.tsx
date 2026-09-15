@@ -368,7 +368,15 @@ export default function DesignSystemPage() {
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <div>
             <p className="mb-2 text-[10px] text-neutral-500">Course Card</p>
-            <CourseCard />
+            <CourseCard
+              mark="N"
+              markClassName="bg-neutral-900 text-white"
+              title="Next.js for Production"
+              description="Build scalable, high-performance web applications with Next.js."
+              level="Intermediate"
+              duration="18h 24m"
+              modules="12 modules"
+            />
           </div>
           <div>
             <p className="mb-2 text-[10px] text-neutral-500">

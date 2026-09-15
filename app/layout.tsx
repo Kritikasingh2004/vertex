@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Vertex Design System",
-  description: "The visual language for the Vertex learning platform.",
+  title: "Vertex | Intelligent Learning",
+  description: "Search your learning in plain English.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -15,6 +15,13 @@
   --color-neutral-500: #64748b;
   --color-neutral-700: #334155;
   --color-neutral-900: #0f172a;
+  --color-warm-50: #fdfcfb;
+  --color-warm-100: #faf7f4;
+  --color-warm-200: #f0e5df;
+  --color-warm-300: #eee7e3;
+  --color-warm-400: #eadfd9;
+  --color-brand-blue: #3178c6;
+  --color-docker-blue: #2496ed;
   --color-white: #ffffff;
   --font-sans: "Inter", sans-serif;
   --font-display: "Playfair Display", Georgia, serif;
@@ -89,6 +96,33 @@ body {
   color: var(--foreground);
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
+}
+
+.vertex-page {
+  background-color: var(--color-warm-100);
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-warm-400) 45%, transparent) 0,
+    color-mix(in srgb, var(--color-warm-400) 45%, transparent) 1px,
+    transparent 1px,
+    transparent 7px
+  );
+}
+
+.home-bars {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 0;
+  overflow: hidden;
+  background: linear-gradient(to top, rgba(255, 238, 229, 0.1), transparent 70%);
+}
+
+.home-bars span {
+  display: block;
+  width: clamp(28px, 8vw, 76px);
+  background: linear-gradient(to top, rgba(249, 115, 22, 0.5), rgba(255, 238, 229, 0.16));
+  filter: blur(0.5px);
 }
 
 button,
