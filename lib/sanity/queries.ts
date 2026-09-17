@@ -52,7 +52,7 @@ export const INSTRUCTORS_LIST_QUERY = defineQuery(/* groq */ `
 
 export const INSTRUCTOR_BY_SLUG_QUERY = defineQuery(/* groq */ `
   *[_type == "instructor" && slug.current == $slug][0] {
-    ${instructorProjection},
+    _id, name, "slug": slug.current, photo ${imageProjection}, expertise, bio,
     "courses": *[_type == "course" && references(^._id)]{
       _id, title, "slug": slug.current, summary, level, price, popular, studentCount,
       coverImage ${imageProjection}, "moduleCount": count(modules),
