@@ -29,8 +29,8 @@ export function CourseHero({ course }: { course: Course }) {
     ) ?? 0;
 
   return (
-    <section className="grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-center lg:gap-[60px]">
-      <div className="relative aspect-[280/328] overflow-hidden rounded-lg bg-neutral-900">
+    <section className="grid gap-8 lg:grid-cols-[minmax(280px,0.72fr)_minmax(0,1fr)] lg:items-center lg:gap-16 xl:gap-20">
+      <div className="relative aspect-[280/328] w-full max-w-[400px] overflow-hidden rounded-lg bg-neutral-900">
         {course.coverImage?.asset?.url ? (
           <Image
             src={course.coverImage.asset.url}
@@ -40,7 +40,7 @@ export function CourseHero({ course }: { course: Course }) {
             }
             fill
             priority
-            sizes="(max-width: 1023px) 100vw, 280px"
+            sizes="(max-width: 1023px) 100vw, (max-width: 1439px) 32vw, 400px"
             className="object-cover"
           />
         ) : (
@@ -50,12 +50,12 @@ export function CourseHero({ course }: { course: Course }) {
         )}
       </div>
 
-      <div className="max-w-[510px]">
+      <div className="max-w-[640px]">
         {course.popular && <Badge variant="popular">Popular</Badge>}
         <h1 className="mt-7 font-display text-[40px] font-bold leading-[1.12] text-neutral-900 sm:text-[52px] sm:leading-[1.15]">
           {course.title}
         </h1>
-        <p className="mt-4 max-w-[430px] text-[16px] leading-8 text-neutral-500 sm:text-[17px]">
+        <p className="mt-4 max-w-[560px] text-[16px] leading-8 text-neutral-500 sm:text-[17px]">
           {course.summary}
         </p>
 

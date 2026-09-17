@@ -1,5 +1,5 @@
 import { BarChart3, Clock3, FolderOpen } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import Link from "next/link";
 
 export type CourseCardProps = {
   mark: string;
@@ -9,6 +9,7 @@ export type CourseCardProps = {
   level: string;
   duration: string;
   modules: string;
+  href?: string;
 };
 
 export function CourseCard({
@@ -19,9 +20,10 @@ export function CourseCard({
   level,
   duration,
   modules,
+  href,
 }: CourseCardProps) {
-  return (
-    <Card className="flex min-h-[372px] flex-col gap-7 p-6">
+  const content = (
+    <>
       <div className="flex items-start gap-3">
         <div
           className={`grid h-[74px] w-[74px] shrink-0 place-items-center rounded-lg ${markClassName}`}
@@ -53,6 +55,16 @@ export function CourseCard({
           {modules}
         </span>
       </div>
-    </Card>
+    </>
+  );
+  const className =
+    "flex min-h-[372px] flex-col gap-7 rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-primary-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2";
+
+  return href ? (
+    <Link className={className} href={href}>
+      {content}
+    </Link>
+  ) : (
+    <div className={className}>{content}</div>
   );
 }
