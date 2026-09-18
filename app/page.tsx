@@ -9,20 +9,6 @@ import { sanityFetch } from "@/lib/sanity/fetch";
 import { COURSES_LIST_QUERY } from "@/lib/sanity/queries";
 import type { COURSES_LIST_QUERY_RESULT } from "@/sanity.types";
 
-const markClasses = [
-  "bg-neutral-900 text-white",
-  "bg-docker-blue text-white",
-  "bg-brand-blue text-white",
-];
-
-function courseMark(title: string) {
-  if (title.toLowerCase().startsWith("typescript")) {
-    return "TS";
-  }
-
-  return title.charAt(0).toUpperCase();
-}
-
 export default async function Home() {
   const courses = await sanityFetch<COURSES_LIST_QUERY_RESULT>({
     query: COURSES_LIST_QUERY,
@@ -86,13 +72,13 @@ export default async function Home() {
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
             </div>
-            <div className="mt-7 grid gap-4 md:grid-cols-3">
-              {featuredCourses.map((course, index) => (
+            <div className="mt-7 grid gap-4 md:grid-cols-3 md:px-15">
+              {featuredCourses.map((course) => (
                 <CourseCard
                   key={course._id}
                   href={courseHref(course.slug!)}
-                  mark={courseMark(course.title!)}
-                  markClassName={markClasses[index % markClasses.length]}
+                  coverImageUrl={course.coverImage?.asset?.url}
+                  coverImageAlt={course.coverImage?.alt}
                   title={course.title!}
                   description={course.summary ?? ""}
                   level={formatLevel(course.level)}

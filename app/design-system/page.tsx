@@ -369,8 +369,6 @@ export default function DesignSystemPage() {
           <div>
             <p className="mb-2 text-[10px] text-neutral-500">Course Card</p>
             <CourseCard
-              mark="N"
-              markClassName="bg-neutral-900 text-white"
               title="Next.js for Production"
               description="Build scalable, high-performance web applications with Next.js."
               level="Intermediate"
