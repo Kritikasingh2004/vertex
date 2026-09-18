@@ -39,8 +39,9 @@ export const LESSON_BY_SLUG_QUERY = defineQuery(/* groq */ `
     _id, title, "slug": slug.current, videoUrl, poster ${imageProjection}, duration, freePreview,
     studentCount, notes, keyPoints, proTip, resources[]{_key, type, title, description, url},
     "course": *[_type == "course" && references(^._id)][0] {
-      _id, title, "slug": slug.current, "instructor": instructor->${instructorProjection},
-      modules[]{_key, title, lessons[]->${lessonCardProjection}}
+      _id, title, "slug": slug.current, coverImage ${imageProjection}, level,
+      "instructor": instructor->${instructorProjection},
+      modules[]{_key, title, "durationSeconds": math::sum(lessons[]->duration), lessons[]->${lessonCardProjection}}
     },
     "module": *[_type == "course" && references(^._id)][0].modules[references(^._id)][0]{_key, title, summary}
   }
