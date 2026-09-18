@@ -1,0 +1,16 @@
+node_modules
+dist
+build
+coverage
+.next
+.vite
+
+.agents
+.claude
+
+*.min.js
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+prompts
