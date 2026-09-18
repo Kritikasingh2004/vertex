@@ -29,7 +29,7 @@ export function CourseHero({ course }: { course: Course }) {
     ) ?? 0;
 
   return (
-    <section className="grid gap-8 lg:grid-cols-[minmax(280px,0.72fr)_minmax(0,1fr)] lg:items-center lg:gap-16 xl:gap-20">
+    <section className="grid gap-8 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)] lg:items-center lg:gap-16 xl:gap-20">
       <div className="relative aspect-[280/328] w-full max-w-[400px] overflow-hidden rounded-lg bg-neutral-900">
         {course.coverImage?.asset?.url ? (
           <Image
@@ -50,7 +50,7 @@ export function CourseHero({ course }: { course: Course }) {
         )}
       </div>
 
-      <div className="max-w-[640px]">
+      <div className="max-w-[700px]">
         {course.popular && <Badge variant="popular">Popular</Badge>}
         <h1 className="mt-7 font-display text-[40px] font-bold leading-[1.12] text-neutral-900 sm:text-[52px] sm:leading-[1.15]">
           {course.title}
