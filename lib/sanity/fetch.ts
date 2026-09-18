@@ -9,7 +9,12 @@ type SanityFetchOptions = {
   revalidate?: number | false;
 };
 
-export function sanityFetch<T>({ query, params, tags, revalidate }: SanityFetchOptions) {
+export function sanityFetch<T>({
+  query,
+  params,
+  tags,
+  revalidate,
+}: SanityFetchOptions) {
   return sanityClient.fetch<T>(query, params ?? {}, {
     next: {
       tags,
