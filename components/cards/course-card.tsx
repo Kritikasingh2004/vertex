@@ -1,6 +1,9 @@
+"use client";
+
 import { BarChart3, Clock3, FolderOpen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import posthog from "posthog-js";
 
 export type CourseCardProps = {
   coverImageUrl?: string | null;
@@ -68,7 +71,21 @@ export function CourseCard({
     "flex min-h-[372px] flex-col gap-7 rounded-lg border border-neutral-200 bg-white p-6 shadow-sm transition hover:border-primary-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2";
 
   return href ? (
-    <Link className={className} href={href}>
+    <Link
+      className={className}
+      href={href}
+      onClick={() => {
+        if (
+          process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN &&
+          process.env.NEXT_PUBLIC_POSTHOG_HOST
+        ) {
+          posthog.capture("course_selected", {
+            course_path: href,
+            course_level: level,
+          });
+        }
+      }}
+    >
       {content}
     </Link>
   ) : (

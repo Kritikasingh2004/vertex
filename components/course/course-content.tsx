@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
+import posthog from "posthog-js";
 import type { COURSE_BY_SLUG_QUERY_RESULT } from "@/sanity.types";
 import { Badge } from "@/components/ui/badge";
 import { lessonHref } from "@/lib/routes";
@@ -25,13 +26,39 @@ export function CourseContent({ modules }: { modules: Module[] }) {
     0,
   );
 
-  function toggleModule(key: string) {
+  function toggleModule(key: string, moduleIndex: number) {
+    const expanded = !openModules.has(key);
     setOpenModules((current) => {
       const next = new Set(current);
       if (next.has(key)) next.delete(key);
       else next.add(key);
       return next;
     });
+
+    if (
+      process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN &&
+      process.env.NEXT_PUBLIC_POSTHOG_HOST
+    ) {
+      posthog.capture("course_module_toggled", {
+        module_index: moduleIndex,
+        expanded,
+      });
+    }
+  }
+
+  function toggleAllModules() {
+    const expanded = !showAll;
+    setShowAll(expanded);
+
+    if (
+      process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN &&
+      process.env.NEXT_PUBLIC_POSTHOG_HOST
+    ) {
+      posthog.capture("course_modules_visibility_changed", {
+        expanded,
+        module_count: modules.length,
+      });
+    }
   }
 
   return (
@@ -69,7 +96,7 @@ export function CourseContent({ modules }: { modules: Module[] }) {
                 type="button"
                 aria-expanded={isOpen}
                 aria-controls={panelId}
-                onClick={() => toggleModule(module._key)}
+                onClick={() => toggleModule(module._key, moduleIndex)}
               >
                 <span
                   className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-warm-300 text-small text-neutral-700"
@@ -110,6 +137,19 @@ export function CourseContent({ modules }: { modules: Module[] }) {
                           className="flex items-center gap-3 border-b border-warm-300 px-5 py-3 pl-16 last:border-b-0 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-500"
                           href={lessonHref(lesson.slug)}
                           key={lesson._id}
+                          onClick={() => {
+                            if (
+                              process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN &&
+                              process.env.NEXT_PUBLIC_POSTHOG_HOST
+                            ) {
+                              posthog.capture("lesson_selected", {
+                                lesson_id: lesson._id,
+                                module_index: moduleIndex,
+                                lesson_index: lessonIndex,
+                                free_preview: lesson.freePreview ?? false,
+                              });
+                            }
+                          }}
                         >
                           <span className="min-w-0 flex-1 truncate text-small text-neutral-900">
                             {lessonLabel(moduleIndex, lessonIndex)}{" "}
@@ -135,7 +175,7 @@ export function CourseContent({ modules }: { modules: Module[] }) {
         <button
           className="mx-auto mt-[-1px] flex h-11 items-center gap-3 rounded-md border border-warm-300 bg-warm-50 px-5 text-body text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
           type="button"
-          onClick={() => setShowAll((current) => !current)}
+          onClick={toggleAllModules}
         >
           {showAll
             ? "Show fewer modules"

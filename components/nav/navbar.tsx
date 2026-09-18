@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 import { Bell } from "lucide-react";
+import posthog from "posthog-js";
 import { Logo } from "@/components/brand/logo";
 
 export function Navbar() {
@@ -36,6 +39,17 @@ export function Navbar() {
             <button
               className="font-semibold text-neutral-700 transition hover:text-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
               type="button"
+              onClick={() => {
+                if (
+                  process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN &&
+                  process.env.NEXT_PUBLIC_POSTHOG_HOST
+                ) {
+                  posthog.capture("auth_prompt_opened", {
+                    auth_flow: "sign_in",
+                    source: "navbar",
+                  });
+                }
+              }}
             >
               Sign in
             </button>
@@ -44,6 +58,17 @@ export function Navbar() {
             <button
               className="rounded-md bg-primary-500 px-3 py-2 font-semibold text-white transition hover:bg-primary-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 sm:px-4"
               type="button"
+              onClick={() => {
+                if (
+                  process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN &&
+                  process.env.NEXT_PUBLIC_POSTHOG_HOST
+                ) {
+                  posthog.capture("auth_prompt_opened", {
+                    auth_flow: "sign_up",
+                    source: "navbar",
+                  });
+                }
+              }}
             >
               Sign up
             </button>

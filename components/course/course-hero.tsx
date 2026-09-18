@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import posthog from "posthog-js";
 import {
   ArrowRight,
   BarChart3,
@@ -87,6 +90,19 @@ export function CourseHero({ course }: { course: Course }) {
             <Link
               className="inline-flex h-14 items-center gap-5 rounded-md bg-primary-500 px-5 text-body text-white shadow-md transition hover:bg-primary-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
               href={lessonHref(firstLesson.slug)}
+              onClick={() => {
+                if (
+                  process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN &&
+                  process.env.NEXT_PUBLIC_POSTHOG_HOST
+                ) {
+                  posthog.capture("learning_started", {
+                    course_id: course._id,
+                    lesson_id: firstLesson._id,
+                    course_level: course.level,
+                    module_count: course.modules?.length ?? 0,
+                  });
+                }
+              }}
             >
               Continue Learning <ArrowRight size={18} aria-hidden="true" />
             </Link>
@@ -94,6 +110,17 @@ export function CourseHero({ course }: { course: Course }) {
           <button
             className="inline-flex h-14 items-center gap-3 rounded-md border border-warm-400 bg-warm-50 px-5 text-body text-neutral-900 transition hover:border-primary-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
             type="button"
+            onClick={() => {
+              if (
+                process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN &&
+                process.env.NEXT_PUBLIC_POSTHOG_HOST
+              ) {
+                posthog.capture("course_bookmark_clicked", {
+                  course_id: course._id,
+                  course_level: course.level,
+                });
+              }
+            }}
           >
             <Bookmark size={17} strokeWidth={1.7} aria-hidden="true" />
             Bookmark
