@@ -1,45 +1,37 @@
 import Link from "next/link";
 import { ArrowRight, Star } from "lucide-react";
-import {
-  CourseCard,
-  type CourseCardProps,
-} from "@/components/cards/course-card";
+import { CourseCard } from "@/components/cards/course-card";
 import { Navbar } from "@/components/nav/navbar";
 import { SearchInput } from "@/components/ui/search-input";
+import { formatDuration, formatLevel } from "@/lib/format";
+import { courseHref } from "@/lib/routes";
+import { sanityFetch } from "@/lib/sanity/fetch";
+import { COURSES_LIST_QUERY } from "@/lib/sanity/queries";
+import type { COURSES_LIST_QUERY_RESULT } from "@/sanity.types";
 
-const courses: CourseCardProps[] = [
-  {
-    mark: "N",
-    markClassName: "bg-neutral-900 text-white",
-    title: "Next.js for Production",
-    description:
-      "Build scalable, high-performance web applications with Next.js.",
-    level: "Intermediate",
-    duration: "18h 24m",
-    modules: "12 modules",
-  },
-  {
-    mark: "▣",
-    markClassName: "bg-docker-blue text-white",
-    title: "Docker Essentials",
-    description:
-      "Containerize applications and streamline your development workflow.",
-    level: "Beginner",
-    duration: "10h 12m",
-    modules: "8 modules",
-  },
-  {
-    mark: "TS",
-    markClassName: "bg-brand-blue text-white",
-    title: "TypeScript Deep Dive",
-    description: "Go beyond the basics and write safer, more expressive code.",
-    level: "Intermediate",
-    duration: "14h 36m",
-    modules: "10 modules",
-  },
+const markClasses = [
+  "bg-neutral-900 text-white",
+  "bg-docker-blue text-white",
+  "bg-brand-blue text-white",
 ];
 
-export default function Home() {
+function courseMark(title: string) {
+  if (title.toLowerCase().startsWith("typescript")) {
+    return "TS";
+  }
+
+  return title.charAt(0).toUpperCase();
+}
+
+export default async function Home() {
+  const courses = await sanityFetch<COURSES_LIST_QUERY_RESULT>({
+    query: COURSES_LIST_QUERY,
+    tags: ["courses"],
+  });
+  const featuredCourses = courses
+    .filter((course) => course.slug && course.title)
+    .slice(0, 3);
+
   return (
     <div className="vertex-page min-h-screen">
       <div className="mx-auto min-h-screen w-full max-w-[1440px] border-x border-warm-200 bg-warm-50 shadow-[0_0_40px_rgba(164,91,55,0.03)]">
@@ -95,8 +87,18 @@ export default function Home() {
               </Link>
             </div>
             <div className="mt-7 grid gap-4 md:grid-cols-3">
-              {courses.map((course) => (
-                <CourseCard key={course.title} {...course} />
+              {featuredCourses.map((course, index) => (
+                <CourseCard
+                  key={course._id}
+                  href={courseHref(course.slug!)}
+                  mark={courseMark(course.title!)}
+                  markClassName={markClasses[index % markClasses.length]}
+                  title={course.title!}
+                  description={course.summary ?? ""}
+                  level={formatLevel(course.level)}
+                  duration={formatDuration(course.totalDuration)}
+                  modules={`${course.moduleCount ?? 0} modules`}
+                />
               ))}
             </div>
           </section>
