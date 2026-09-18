@@ -39,7 +39,8 @@ export default async function CoursesPage() {
                 All Courses
               </h1>
               <p className="text-small text-neutral-500">
-                {validCourses.length} {validCourses.length === 1 ? "course" : "courses"}
+                {validCourses.length}{" "}
+                {validCourses.length === 1 ? "course" : "courses"}
               </p>
             </div>
 
