@@ -1,10 +1,8 @@
 import Link from "next/link";
 import { ArrowRight, Star } from "lucide-react";
-import { CourseCard } from "@/components/cards/course-card";
+import { CourseGrid } from "@/components/cards/course-grid";
 import { Navbar } from "@/components/nav/navbar";
 import { SearchInput } from "@/components/ui/search-input";
-import { formatDuration, formatLevel } from "@/lib/format";
-import { courseHref } from "@/lib/routes";
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { COURSES_LIST_QUERY } from "@/lib/sanity/queries";
 import type { COURSES_LIST_QUERY_RESULT } from "@/sanity.types";
@@ -14,10 +12,6 @@ export default async function Home() {
     query: COURSES_LIST_QUERY,
     tags: ["courses"],
   });
-  const featuredCourses = courses
-    .filter((course) => course.slug && course.title)
-    .slice(0, 3);
-
   return (
     <div className="vertex-page min-h-screen">
       <div className="mx-auto min-h-screen w-full max-w-[1440px] border-x border-warm-200 bg-warm-50 shadow-[0_0_40px_rgba(164,91,55,0.03)]">
@@ -54,7 +48,7 @@ export default async function Home() {
           </section>
 
           <section
-            className="border-t border-[#eee7e3] px-8 pb-0 pt-12 sm:px-12 sm:pt-14"
+            className="border-t border-[#eee7e3] px-8 pb-0 pt-12 sm:px-15 sm:pt-14"
             aria-labelledby="all-courses-heading"
           >
             <div className="flex items-center justify-between gap-4">
@@ -72,20 +66,8 @@ export default async function Home() {
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
             </div>
-            <div className="mt-7 grid gap-4 md:grid-cols-3 md:px-15">
-              {featuredCourses.map((course) => (
-                <CourseCard
-                  key={course._id}
-                  href={courseHref(course.slug!)}
-                  coverImageUrl={course.coverImage?.asset?.url}
-                  coverImageAlt={course.coverImage?.alt}
-                  title={course.title!}
-                  description={course.summary ?? ""}
-                  level={formatLevel(course.level)}
-                  duration={formatDuration(course.totalDuration)}
-                  modules={`${course.moduleCount ?? 0} modules`}
-                />
-              ))}
+            <div className="mt-7">
+              <CourseGrid courses={courses} limit={3} />
             </div>
           </section>
 
