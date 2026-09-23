@@ -11,11 +11,29 @@ export const resource = defineType({
       name: "type",
       title: "Type",
       type: "string",
-      options: { list: ["pdf", "link", "repo", "code", "slides"], layout: "dropdown" },
+      options: {
+        list: ["pdf", "link", "repo", "code", "slides"],
+        layout: "dropdown",
+      },
       validation: (rule) => rule.required(),
     }),
-    defineField({ name: "title", title: "Title", type: "string", validation: (rule) => rule.required() }),
-    defineField({ name: "description", title: "Description", type: "text", rows: 3 }),
-    defineField({ name: "url", title: "URL", type: "url", validation: (rule) => rule.required() }),
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "url",
+      title: "URL",
+      type: "url",
+      validation: (rule) => rule.required(),
+    }),
   ],
 });

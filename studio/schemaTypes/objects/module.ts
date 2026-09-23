@@ -7,8 +7,19 @@ export const moduleSchema = defineType({
   type: "object",
   icon: BookIcon,
   fields: [
-    defineField({ name: "title", title: "Title", type: "string", validation: (rule) => rule.required() }),
-    defineField({ name: "summary", title: "Summary", type: "text", rows: 3, validation: (rule) => rule.required() }),
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "summary",
+      title: "Summary",
+      type: "text",
+      rows: 3,
+      validation: (rule) => rule.required(),
+    }),
     defineField({
       name: "lessons",
       title: "Lessons",
@@ -19,6 +30,9 @@ export const moduleSchema = defineType({
   ],
   preview: {
     select: { title: "title", lessons: "lessons" },
-    prepare: ({ title, lessons }) => ({ title, subtitle: `${lessons?.length ?? 0} lessons` }),
+    prepare: ({ title, lessons }) => ({
+      title,
+      subtitle: `${lessons?.length ?? 0} lessons`,
+    }),
   },
 });

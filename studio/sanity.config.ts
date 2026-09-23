@@ -6,7 +6,8 @@ import { structure } from "./structure";
 
 function requiredEnv(name: string) {
   const value = process.env[name];
-  if (!value) throw new Error(`Missing required Studio environment variable: ${name}`);
+  if (!value)
+    throw new Error(`Missing required Studio environment variable: ${name}`);
   return value;
 }
 
