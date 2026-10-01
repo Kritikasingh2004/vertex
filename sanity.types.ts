@@ -554,6 +554,38 @@ export type LESSON_BY_SLUG_QUERY_RESULT = {
 } | null;
 
 // Source: ../lib/sanity/queries.ts
+// Variable: LESSONS_BY_IDS_QUERY
+// Query: *[_type == "lesson" && _id in $ids] {    _id, title, "slug": slug.current, duration, freePreview,    poster { asset->{_id, url}, alt }, keyPoints,    "createdAt": _createdAt,    "course": *[_type == "course" && references(^._id)][0] {      _id, title, "slug": slug.current,      modules[]{_key, title, lessons[]->{_id}}    }  }
+export type LESSONS_BY_IDS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  duration: number | null;
+  freePreview: boolean | null;
+  poster: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    alt: string | null;
+  } | null;
+  keyPoints: Array<string> | null;
+  createdAt: string;
+  course: {
+    _id: string;
+    title: string | null;
+    slug: string | null;
+    modules: Array<{
+      _key: string;
+      title: string | null;
+      lessons: Array<{
+        _id: string;
+      }> | null;
+    }> | null;
+  } | null;
+}>;
+
+// Source: ../lib/sanity/queries.ts
 // Variable: INSTRUCTORS_LIST_QUERY
 // Query: *[_type == "instructor" && defined(slug.current)] | order(name asc) { _id, name, "slug": slug.current, photo { asset->{_id, url}, alt }, expertise, bio }
 export type INSTRUCTORS_LIST_QUERY_RESULT = Array<{
@@ -626,6 +658,7 @@ declare global {
     '\n  *[_type == "course" && slug.current == $slug][0] {\n    _id, title, "slug": slug.current, summary, coverImage { asset->{_id, url}, alt }, level, price, popular, studentCount,\n    learningOutcomes[]{_key, icon, title, description},\n    "instructor": instructor->{ _id, name, "slug": slug.current, photo { asset->{_id, url}, alt }, expertise, bio },\n    "category": category->{ _id, title, "slug": slug.current, description },\n    modules[]{_key, title, summary, lessons[]->{ _id, title, "slug": slug.current, duration, freePreview }}\n  }\n': COURSE_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "lesson" && defined(slug.current)]{ "slug": slug.current }\n': LESSON_SLUGS_QUERY_RESULT;
     '\n  *[_type == "lesson" && slug.current == $slug][0] {\n    _id, title, "slug": slug.current, videoUrl, poster { asset->{_id, url}, alt }, duration, freePreview,\n    studentCount, notes, keyPoints, proTip, resources[]{_key, type, title, description, url},\n    "course": *[_type == "course" && references(^._id)][0] {\n      _id, title, "slug": slug.current, coverImage { asset->{_id, url}, alt }, level,\n      "instructor": instructor->{ _id, name, "slug": slug.current, photo { asset->{_id, url}, alt }, expertise, bio },\n      modules[]{_key, title, "durationSeconds": math::sum(lessons[]->duration), lessons[]->{ _id, title, "slug": slug.current, duration, freePreview }}\n    },\n    "module": *[_type == "course" && references(^._id)][0].modules[references(^._id)][0]{_key, title, summary}\n  }\n': LESSON_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "lesson" && _id in $ids] {\n    _id, title, "slug": slug.current, duration, freePreview,\n    poster { asset->{_id, url}, alt }, keyPoints,\n    "createdAt": _createdAt,\n    "course": *[_type == "course" && references(^._id)][0] {\n      _id, title, "slug": slug.current,\n      modules[]{_key, title, lessons[]->{_id}}\n    }\n  }\n': LESSONS_BY_IDS_QUERY_RESULT;
     '\n  *[_type == "instructor" && defined(slug.current)] | order(name asc) { _id, name, "slug": slug.current, photo { asset->{_id, url}, alt }, expertise, bio }\n': INSTRUCTORS_LIST_QUERY_RESULT;
     '\n  *[_type == "instructor" && slug.current == $slug][0] {\n    _id, name, "slug": slug.current, photo { asset->{_id, url}, alt }, expertise, bio,\n    "courses": *[_type == "course" && references(^._id)]{\n      _id, title, "slug": slug.current, summary, level, price, popular, studentCount,\n      coverImage { asset->{_id, url}, alt }, "moduleCount": count(modules),\n      "totalDuration": math::sum(modules[].lessons[]->duration)\n    }\n  }\n': INSTRUCTOR_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "category" && defined(slug.current)] | order(title asc){ _id, title, "slug": slug.current, description }\n': CATEGORIES_LIST_QUERY_RESULT;
