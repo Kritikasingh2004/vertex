@@ -47,6 +47,18 @@ export const LESSON_BY_SLUG_QUERY = defineQuery(/* groq */ `
   }
 `);
 
+export const LESSONS_BY_IDS_QUERY = defineQuery(/* groq */ `
+  *[_type == "lesson" && _id in $ids] {
+    _id, title, "slug": slug.current, duration, freePreview,
+    poster ${imageProjection}, keyPoints,
+    "createdAt": _createdAt,
+    "course": *[_type == "course" && references(^._id)][0] {
+      _id, title, "slug": slug.current,
+      modules[]{_key, title, lessons[]->{_id}}
+    }
+  }
+`);
+
 export const INSTRUCTORS_LIST_QUERY = defineQuery(/* groq */ `
   *[_type == "instructor" && defined(slug.current)] | order(name asc) ${instructorProjection}
 `);

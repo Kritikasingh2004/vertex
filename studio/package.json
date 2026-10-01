@@ -8,7 +8,8 @@
     "typegen": "sanity schema extract --force && sanity typegen generate",
     "typecheck": "tsc --noEmit",
     "seed:build": "node scripts/seed/build-ndjson.mjs",
-    "seed:import": "sanity dataset import scripts/seed/seed.ndjson production --replace"
+    "seed:import": "sanity dataset import scripts/seed/seed.ndjson production --replace",
+    "context:import": "sanity dataset import scripts/context/vertex-search.ndjson production --replace"
   },
   "dependencies": {
     "@sanity/icons": "^5.2.2",
